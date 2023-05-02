@@ -17,8 +17,8 @@ void my_puterr(const char *str)
         } else {
             backslash = 0;
         }
-        if (backslash && backslash != 2)
+        if (backslash && (backslash % 2) != 0)
             continue;
-        my_putchar(str[i]);
+        write(2, (char [1]){str[i]}, 1);
     }
 }
