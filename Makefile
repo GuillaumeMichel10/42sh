@@ -5,7 +5,7 @@
 ## it makes files
 ##
 
-.PHONY: all val clean fclean re
+.PHONY: all val test clean fclean re
 
 CFLAGS  += -W -Wall -Wextra -Wundef -g -lncurses -O2
 LDFLAGS = -L./lib/my -lmy
@@ -21,6 +21,13 @@ all:	$(NAME)
 $(NAME):	$(OBJ)
 		make -C ./lib/my
 		gcc -o $(NAME) $(OBJ) $(LDFLAGS)
+
+test:
+		make
+		sleep 1
+		./test/test.sh
+		sleep 2
+		./test/test2.sh
 
 val:
 		make
