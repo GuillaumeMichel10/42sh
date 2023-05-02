@@ -10,20 +10,18 @@
 void exec_cmd(mysh_t *mysh, cmd_node_t *node, const int nb_pipes, const int n)
 {
     static int pipe_fd[2][2];
-    int exit_value = SUCCESS;
+    int exit_value = -1;
 
     if (nb_pipes && pipe(pipe_fd[0]) == -1)
         return;
     pid_t pid = fork();
     if (pid == 0) {
         connect_pipe(pipe_fd, nb_pipes, n);
-        exit_value = builtin(mysh, node);
-        if (exit_value != -1 && is_echo(node->text[0]) == FAILURE) {
-            exit(exit_value);
-        } else {
+        if (node->next || is_echo(node->text[0]) == SUCCESS)
+            exit_value = builtin(mysh, node);
+        if (exit_value == -1)
             execve(node->str, node->text, mysh->env);
-        }
-        exit(EXIT_FAILURE);
+        exit(exit_value);
     }
     close_pipe(pipe_fd, nb_pipes, n);
     swap_pipe((int **)pipe_fd);
@@ -37,11 +35,9 @@ void exec_cmd_list(mysh_t *mysh, cmd_list_t *list)
 
     if (!node)
         return;
-    if (is_builtin(list->last->text[0]) == SUCCESS) {
+    if (is_builtin(list->last->text[0]) == SUCCESS)
         last_is_builtin = true;
-        --list->size;
-    }
-    for (int i = 0; i < list->size; ++i) {
+    for (int i = 0; node; ++i) {
         exec_cmd(mysh, node, list->size - 1, i);
         node = node->next;
     }

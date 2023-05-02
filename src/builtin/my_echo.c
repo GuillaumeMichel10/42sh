@@ -71,5 +71,5 @@ int my_echo(mysh_t *mysh, cmd_node_t *node)
         if (str && *(++str) && expand_dollar(mysh, node, i) == FAILURE)
             return (FAILURE);
     }
-    return (SUCCESS);
+    return (-1);
 }

@@ -27,22 +27,16 @@ void get_cmd(mysh_t *mysh, char *input)
 {
     size_t k = 0;
     cmd_list_t *list = NULL;
-    char **commands = my_str_to_word_array(input, ";", &k);
+    char **commands = my_str_to_word_array(input, ";\n", &k);
 
     for (int i = 0; commands[i] ; ++i) {
         list = parse_pipe(commands[i]);
         mysh->error = is_valid_input(mysh, list);
-        if (mysh->error == SUCCESS)
+        if (mysh->error == SUCCESS) {
             exec_cmd_list(mysh, list);
+        } else {
+            break;
+        }
     }
-
-//    for (int i = 0; i < mysh->commands.size; ++i) {
-//        cmd_node_t *test = mysh->commands.tab[i]->first;
-//        while (test) {
-//            for (int i = 0; test->text[i]; ++i)
-//                printf("%s\t", test->text[i]);
-//            printf("\n");
-//            test = test->next;
-//        }
-//    }
+    //free
 }

@@ -17,13 +17,13 @@ error_m is_valid_redirect(char **commands)
         c = my_strchr(commands[i][0], "><");
         if (c == NULL)
             continue;
-        if (!commands[i + 1] || my_strchr(commands[i][0], "><") != NULL)
+        if (!commands[i + 1] || my_strchr(commands[i + 1][0], "><") != NULL)
             return (ERR_MISSING_NAME_FOR_REDIRECT);
         if (i == 0)
             return (ERR_NULL_CMD);
-        if (*c == '<' && ++redirect_out)
+        if (*c == '<' && ++redirect_out == 2)
             return (ERR_AMBIG_IN_REDIRECT);
-        if (*c == '>' && ++redirect_in)
+        if (*c == '>' && ++redirect_in == 2)
             return (ERR_AMBIG_OUT_REDIRECT);
     }
     return (ERR_OK);
@@ -77,5 +77,9 @@ int is_valid_input(mysh_t *mysh, cmd_list_t *list)
             return (FAILURE);
         }
     }
+//    if (list->size == 0) {
+//        display_error(NULL, ERR_NULL_CMD);
+//        return (FAILURE);
+//    }
     return (SUCCESS);
 }
