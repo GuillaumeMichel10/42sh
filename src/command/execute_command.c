@@ -17,6 +17,9 @@ void exec_cmd(mysh_t *mysh, cmd_node_t *node, const int nb_pipes, const int n)
     pid_t pid = fork();
     if (pid == 0) {
         connect_pipe(pipe_fd, nb_pipes, n);
+        redirect_out(node->text);
+        if (redirect_in(node->text) == FAILURE)
+            exit(FAILURE);
         if (node->next || is_echo(node->text[0]) == SUCCESS)
             exit_value = builtin(mysh, node);
         if (exit_value == -1)

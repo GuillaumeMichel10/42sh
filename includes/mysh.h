@@ -12,6 +12,7 @@
 #include "../src/command/command.h"
 #include "../src/environment/env.h"
 #include "../src/builtin/builtin.h"
+#include "../src/redirect/redirect.h"
 #include "../src/utils/utils.h"
 
 typedef enum error_e{

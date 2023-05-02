@@ -72,14 +72,13 @@ int is_valid_input(mysh_t *mysh, cmd_list_t *list)
         }
         if (is_builtin(node->text[0]) == SUCCESS)
             continue;
-        if ((error = is_valid_command(mysh, node)) != ERR_OK) {
+        error = is_valid_command(mysh, node);
+        if (error == ERR_NO_SUCH_FILE_OR_DIRECTORY)
+            error = ERR_CMD_NOT_FOUND;
+        if (error != ERR_OK) {
             display_error(node->text[0], error);
             return (FAILURE);
         }
     }
-//    if (list->size == 0) {
-//        display_error(NULL, ERR_NULL_CMD);
-//        return (FAILURE);
-//    }
     return (SUCCESS);
 }

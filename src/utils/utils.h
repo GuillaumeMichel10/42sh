@@ -23,3 +23,9 @@ error_m is_directory_accessible(char *path);
 */
 
 void display_error(char *str, error_m error);
+
+/*
+**  erase_row
+*/
+
+void erase_row(char **text, size_t n);
