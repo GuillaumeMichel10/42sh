@@ -14,12 +14,13 @@ error_m is_valid_redirect(char **commands)
     char *c = NULL;
 
     for (int i = 0; commands[i]; ++i) {
-        if ((c = my_strchr(commands[i][0], "><")) == NULL)
+        c = my_strchr(commands[i][0], "><");
+        if (c == NULL)
             continue;
-        if (i == 0)
-            return (ERR_NULL_CMD);
         if (!commands[i + 1] || my_strchr(commands[i][0], "><") != NULL)
             return (ERR_MISSING_NAME_FOR_REDIRECT);
+        if (i == 0)
+            return (ERR_NULL_CMD);
         if (*c == '<' && ++redirect_out)
             return (ERR_AMBIG_IN_REDIRECT);
         if (*c == '>' && ++redirect_in)
@@ -67,16 +68,14 @@ int is_valid_input(mysh_t *mysh, cmd_list_t *list)
     for (;node; node = node->next) {
         if ((error = is_valid_redirect(node->text)) != ERR_OK) {
             display_error(NULL, error);
-            mysh->error = 1;
-            return (EXIT_FAILURE);
+            return (FAILURE);
         }
-        if (is_builtin(node->text[0]) == EXIT_SUCCESS)
+        if (is_builtin(node->text[0]) == SUCCESS)
             continue;
         if ((error = is_valid_command(mysh, node)) != ERR_OK) {
             display_error(node->text[0], error);
-            mysh->error = 1;
-            return (EXIT_FAILURE);
+            return (FAILURE);
         }
     }
-    return (EXIT_SUCCESS);
+    return (SUCCESS);
 }

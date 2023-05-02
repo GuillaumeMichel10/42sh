@@ -31,7 +31,8 @@ void get_cmd(mysh_t *mysh, char *input)
 
     for (int i = 0; commands[i] ; ++i) {
         list = parse_pipe(commands[i]);
-        if (is_valid_input(mysh, list) == EXIT_SUCCESS)
+        mysh->error = is_valid_input(mysh, list);
+        if (mysh->error == SUCCESS)
             exec_cmd_list(mysh, list);
     }
 

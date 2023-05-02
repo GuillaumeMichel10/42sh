@@ -14,7 +14,7 @@ static char *const errors[] = {
     "Invalid null command",
     "Ambiguous output redirect",
     "Ambiguous input redirect",
-    "Missing name for redirect",
+    "Missing name for redirect.",
     "Too many ('s",
     "Too many )'s",
     "Badly placed ()'s",
