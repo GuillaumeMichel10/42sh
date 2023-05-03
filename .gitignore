@@ -1,0 +1,26 @@
+# Fichiers objet et binaires
+*.o
+*.out
+*.a
+*.log
+
+# Fichiers générés par la compilation
+/config.status
+/config.log
+
+# Fichiers de sauvegarde et d'éditeur de texte
+*~
+\#*\#
+
+# Fichiers générés par l'environnement de développement
+/.vscode
+/.idea
+/.project
+/.cproject
+/.settings
+
+# Fichiers de données de tests ou de configuration
+/test
+
+# Fichiers autres
+help.txt
