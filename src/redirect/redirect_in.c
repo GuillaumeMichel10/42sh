@@ -54,8 +54,8 @@ static int redirect_in_from(char *filename, int option)
     error_m error = is_file_accessible(filename);
 
     if (error != ERR_OK) {
-        display_error(filename, error);
-        return (FAILURE);
+            display_error(filename, error);
+            return (FAILURE);
     }
     if (option == 1) {
         input = open(filename, O_RDONLY, 0777);

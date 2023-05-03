@@ -10,7 +10,7 @@
 #include "include.h"
 
 #include "../src/command/command.h"
-#include "../src/environment/env.h"
+#include "../src/environment/environment.h"
 #include "../src/builtin/builtin.h"
 #include "../src/redirect/redirect.h"
 #include "../src/utils/utils.h"
@@ -50,8 +50,8 @@ typedef enum error_e{
 } error_m;
 
 typedef struct mysh_s {
-    env_list_t *env_list;
-    char **env;
+    environment_list_t *environment_list;
+    char **environment;
     char *oldpwd;
     char *home;
     char **path;
@@ -59,5 +59,5 @@ typedef struct mysh_s {
     bool exit;
 }mysh_t;
 
-mysh_t *setup(char **env);
+mysh_t *setup(char **environment);
 void loop(mysh_t *mysh);

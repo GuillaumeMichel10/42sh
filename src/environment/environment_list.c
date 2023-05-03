@@ -2,28 +2,24 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** list_env
+** list_environment
 */
 
-#include "env.h"
+#include "environment.h"
 
-static env_node_t *new (char **text, int len)
+static environment_node_t *new(void)
 {
-    env_node_t *node = malloc(sizeof(*node));
+    environment_node_t *node = malloc(sizeof(*node));
 
     if (!node)
         return (NULL);
 
-    node->text = text;
-    node->len = len;
-    node->prev = NULL;
-    node->next = NULL;
-    node->str = NULL;
+    *node = (environment_node_t){0};
 
     return (node);
 }
 
-static void add (env_list_t *list, env_node_t *node)
+static void add (environment_list_t *list, environment_node_t *node)
 {
     if (!list || !node)
         return;
@@ -39,9 +35,9 @@ static void add (env_list_t *list, env_node_t *node)
     ++list->size;
 }
 
-env_list_t *new_env_list(void)
+environment_list_t *new_environment_list(void)
 {
-    env_list_t *list = malloc(sizeof(*list));
+    environment_list_t *list = malloc(sizeof(*list));
 
     list->last = NULL;
     list->first = NULL;

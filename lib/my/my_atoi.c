@@ -27,5 +27,6 @@ int my_atoi(const char *str)
         result = result * 10 + digit;
     }
     result *= sign;
+
     return (result);
 }

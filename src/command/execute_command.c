@@ -22,8 +22,8 @@ void exec_command(mysh_t *mysh, command_node_t *node, const int nb_pipes, const 
             exit(FAILURE);
         if (node->next || is_echo(node->text[0]) == SUCCESS)
             exit_value = builtin(mysh, node);
-        if (exit_value == -1)
-            execve(node->str, node->text, mysh->env);
+        if (node->str && exit_value == -1)
+            execve(node->str, node->text, mysh->environment);
         exit(exit_value);
     }
     close_pipe(pipe_fd, nb_pipes, n);

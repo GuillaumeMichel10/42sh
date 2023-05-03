@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** my_env
+** my_environment
 */
 
 #include "../../includes/mysh.h"
 
-int my_env(mysh_t *mysh, command_node_t *command)
+int my_environment(mysh_t *mysh, command_node_t *command)
 {
     int return_value = SUCCESS;
 
     switch (command->size) {
         case 1:
-            for (int i = 0; mysh->env[i]; ++i) {
-                my_putstr(mysh->env[i]);
+            for (int i = 0; mysh->environment[i]; ++i) {
+                my_putstr(mysh->environment[i]);
                 my_putchar('\n');
             }
             break;

@@ -7,14 +7,14 @@
 
 #include "../../includes/mysh.h"
 
-//    while (mysh->list_env->first)
-//        mysh->list_env->pop(mysh->list_env, mysh->list_env->last);
+//    while (mysh->list_environment->first)
+//        mysh->list_environment->pop(mysh->list_environment, mysh->list_environment->last);
 //    while (mysh->commands.size)
 //        mysh->commands.pop(&mysh->commands);
 //    free (mysh->commands.array);
-//    for (int i = 0; mysh->env[i]; ++i)
-//        free(mysh->env[i]);
-//    free(mysh->env);
+//    for (int i = 0; mysh->environment[i]; ++i)
+//        free(mysh->environment[i]);
+//    free(mysh->environment);
 //    if (mysh->oldpwd)
 //        free(mysh->oldpwd);
 //    if (mysh->home)

@@ -9,24 +9,25 @@
 
 void my_setenv_with_args(mysh_t *mysh, command_node_t *command)
 {
-    char **env = NULL;
-    env_node_t *node = mysh->env_list->first;
+    environment_node_t *node = mysh->environment_list->first;
 
-    while (node) {
-        if (my_strcmp(node->text[0], command->text[1]) == 0){
+    for (int i = 0; node; ++i) {
+        if (my_strcmp(node->text[0], command->text[1]) == SUCCESS){
             free(node->text[1]);
+            free(node->str);
             node->text[1] = my_strcpy(command->text[2]);
-            update_env(mysh);
+            node->str = my_concat(3, node->text[0], "=",  node->text[1]);
+            mysh->environment[i] = node->str;
             return;
         }
         node = node->next;
     }
-    env = malloc(sizeof(char *) * 3);
-    env[2] = NULL;
-    env[0] = my_strcpy(command->text[1]);
-    env[1] = my_strcpy(command->text[2]);
-    mysh->env_list->add(mysh->env_list, mysh->env_list->new(env, 2));
-    update_env(mysh);
+    node = mysh->environment_list->new();
+    node->text[0] = my_strcpy(command->text[1]);
+    node->text[1] = my_strcpy(command->text[2]);
+    node->str = my_concat(3, node->text[0], "=", node->text[1]);
+    mysh->environment_list->add(mysh->environment_list, node);
+    update_environment(mysh);
 }
 
 int is_valid_setenv_argument(const char *var_name)
@@ -39,7 +40,7 @@ int is_valid_setenv_argument(const char *var_name)
     } else if (!my_str_isalpha(var_name)){
         display_error("setenv", ERR_VARIABLE_NAME_CONTAIN_ALPHANUMERIC_CHARS);
         return_value = FAILURE;
-    } else {}
+    }
 
     return (return_value);
 }
@@ -50,7 +51,7 @@ int my_setenv(mysh_t *mysh, command_node_t *node)
 
     switch (node->size) {
         case 1:
-            my_env(mysh, node);
+            my_environment(mysh, node);
             break;
         case 2 ... 3:
             if (is_valid_setenv_argument(node->text[1]) == SUCCESS) {

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** list_env
+** list_environment
 */
 
 #include "../../includes/mysh.h"

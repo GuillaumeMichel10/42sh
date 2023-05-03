@@ -9,7 +9,7 @@
 
 int my_unsetenv(mysh_t *mysh, command_node_t *command)
 {
-    env_node_t *node = mysh->env_list->first;
+    environment_node_t *node = mysh->environment_list->first;
 
     (void)node;
     if (command->size == 1) {
@@ -20,14 +20,14 @@ int my_unsetenv(mysh_t *mysh, command_node_t *command)
     mysh->oldpwd = NULL;
 //    for (int i = 1; node && command->text[i];) {
 //        if (my_strcmp(node->text[0], command->text[i]) == 0) {
-//            mysh->env_list->pop(mysh->list_env, node);
-//            update_env(mysh);
-//            node = mysh->env_list->first;
+//            mysh->environment_list->pop(mysh->list_environment, node);
+//            update_environment(mysh);
+//            node = mysh->environment_list->first;
 //            ++i;
 //            continue;
 //        }
 //        if (!(node = node->next) && command->text[++i])
-//            node = mysh->env_list->first;
+//            node = mysh->environment_list->first;
 //    }
     return (SUCCESS);
 }

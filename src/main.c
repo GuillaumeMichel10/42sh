@@ -12,14 +12,14 @@
 //    (void)signal;
 //}
 
-int main(int ac, char **av, char **env)
+int main(int ac, char **av, char **environment)
 {
     (void)av;
 //    signal(SIGINT, signal_handler);
 
     if (ac != 1)
         return (84);
-    mysh_t *mysh = setup(env);
+    mysh_t *mysh = setup(environment);
     loop(mysh);
     return (mysh->error);
 }

@@ -13,7 +13,7 @@ static const built_in_t call_fnct[] = {
     {"unsetenv", my_unsetenv, SUCCESS},
     {"echo", my_echo, FAILURE},
     {"setenv", my_setenv, SUCCESS},
-    {"env", my_env, SUCCESS},
+    {"environment", my_environment, SUCCESS},
     {NULL, NULL, FAILURE}
 };
 
