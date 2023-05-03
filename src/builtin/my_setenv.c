@@ -7,7 +7,7 @@
 
 #include "../../includes/mysh.h"
 
-void my_setenv_with_args(mysh_t *mysh, cmd_node_t *command)
+void my_setenv_with_args(mysh_t *mysh, command_node_t *command)
 {
     char **env = NULL;
     env_node_t *node = mysh->env_list->first;
@@ -44,7 +44,7 @@ int is_valid_setenv_argument(const char *var_name)
     return (return_value);
 }
 
-int my_setenv(mysh_t *mysh, cmd_node_t *node)
+int my_setenv(mysh_t *mysh, command_node_t *node)
 {
     int return_value = SUCCESS;
 

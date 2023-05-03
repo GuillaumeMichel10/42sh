@@ -10,8 +10,8 @@
 static char *const errors[] = {
     "",
     ": Command not found.\n",
-    ": Permission denied.",
-    "Invalid null command",
+    ": Permission denied.\n",
+    "Invalid null command.\n",
     "Ambiguous output redirect.\n",
     "Ambiguous input redirect.\n",
     "Missing name for redirect.\n",

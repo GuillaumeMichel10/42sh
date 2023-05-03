@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** libmy
 ** File description:
-** count_sentences
+** count_words
 */
 
 #include "libmy.h"

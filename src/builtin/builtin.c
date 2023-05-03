@@ -31,7 +31,7 @@ int is_builtin(char *str)
     return (FAILURE);
 }
 
-int builtin(mysh_t *mysh, cmd_node_t *node)
+int builtin(mysh_t *mysh, command_node_t *node)
 {
     for (int k = 0; call_fnct[k].ptr; ++k) {
         if (my_strcmp(call_fnct[k].name, node->text[0]) == SUCCESS)

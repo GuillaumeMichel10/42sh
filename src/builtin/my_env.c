@@ -7,7 +7,7 @@
 
 #include "../../includes/mysh.h"
 
-int my_env(mysh_t *mysh, cmd_node_t *command)
+int my_env(mysh_t *mysh, command_node_t *command)
 {
     int return_value = SUCCESS;
 

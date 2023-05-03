@@ -15,14 +15,16 @@ void display_prompt(void)
 void loop(mysh_t *mysh)
 {
     size_t n = 0;
+    ssize_t k = 0;
     char *lineptr = NULL;
 
     while (1) {
         if (isatty(0))
             display_prompt();
-        if (getline(&lineptr, &n, stdin) == -1)
+        if ((k = getline(&lineptr, &n, stdin)) == -1)
             return;
-        get_cmd(mysh, lineptr);
+        lineptr[k - 1] = '\0';
+        handle_command(mysh, lineptr);
         free(lineptr);
         lineptr = NULL;
         if (mysh->exit)

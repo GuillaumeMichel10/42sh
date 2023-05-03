@@ -7,7 +7,7 @@
 
 #include "../../includes/mysh.h"
 
-int expand_error_variable(mysh_t *mysh, cmd_node_t *node, int index)
+int expand_error_variable(mysh_t *mysh, command_node_t *node, int index)
 {
     char *str = NULL;
     char *replace = NULL;
@@ -24,7 +24,7 @@ int expand_error_variable(mysh_t *mysh, cmd_node_t *node, int index)
     return (FAILURE);
 }
 
-int expand_environment_variables(mysh_t *mysh, cmd_node_t *node, int index)
+int expand_environment_variables(mysh_t *mysh, command_node_t *node, int index)
 {
     char *str = NULL;
     char *to_find = NULL;
@@ -45,7 +45,7 @@ int expand_environment_variables(mysh_t *mysh, cmd_node_t *node, int index)
     return (FAILURE);
 }
 
-int expand_dollar(mysh_t *mysh, cmd_node_t *node, int index)
+int expand_dollar(mysh_t *mysh, command_node_t *node, int index)
 {
     if (expand_error_variable(mysh, node, index) == SUCCESS)
         return (SUCCESS);
@@ -56,7 +56,7 @@ int expand_dollar(mysh_t *mysh, cmd_node_t *node, int index)
     return (FAILURE);
 }
 
-int my_echo(mysh_t *mysh, cmd_node_t *node)
+int my_echo(mysh_t *mysh, command_node_t *node)
 {
     char *str = NULL;
 

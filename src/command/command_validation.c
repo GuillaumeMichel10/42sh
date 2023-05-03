@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** exec_cmd_list
+** exec_command_list
 */
 
 #include "../../includes/mysh.h"
 
-error_m is_valid_redirect(char **commands)
+error_m is_redirections_valid(char **commands)
 {
     int redirect_in = 0;
     int redirect_out = 0;
@@ -20,7 +20,7 @@ error_m is_valid_redirect(char **commands)
         if (!commands[i + 1] || my_strchr(commands[i + 1][0], "><") != NULL)
             return (ERR_MISSING_NAME_FOR_REDIRECT);
         if (i == 0)
-            return (ERR_NULL_CMD);
+            return (ERR_NULL_command);
         if (*c == '<' && ++redirect_out == 2)
             return (ERR_AMBIG_IN_REDIRECT);
         if (*c == '>' && ++redirect_in == 2)
@@ -29,7 +29,22 @@ error_m is_valid_redirect(char **commands)
     return (ERR_OK);
 }
 
-error_m is_system_command(mysh_t *mysh, cmd_node_t *node)
+error_m test_redirections(command_list_t *list)
+{
+    error_m error = ERR_OK;
+    command_node_t *node = list->first;
+
+    while (node) {
+        error = is_redirections_valid(node->text);
+        if (error != ERR_OK)
+            break;
+        node = node->next;
+    }
+
+    return (error);
+}
+
+error_m is_system_command(mysh_t *mysh, command_node_t *node)
 {
     char *path = NULL;
     error_m error = ERR_OK;
@@ -47,7 +62,7 @@ error_m is_system_command(mysh_t *mysh, cmd_node_t *node)
     return (error);
 }
 
-error_m is_valid_command(mysh_t *mysh, cmd_node_t *node)
+error_m is_valid_command(mysh_t *mysh, command_node_t *node)
 {
     error_m error = ERR_OK;
 
@@ -60,21 +75,17 @@ error_m is_valid_command(mysh_t *mysh, cmd_node_t *node)
     return (error);
 }
 
-int is_valid_input(mysh_t *mysh, cmd_list_t *list)
+int test_command(mysh_t *mysh, command_list_t *list)
 {
-    cmd_node_t *node = list->first;
+    command_node_t *node = list->first;
     error_m error = ERR_OK;
 
     for (;node; node = node->next) {
-        if ((error = is_valid_redirect(node->text)) != ERR_OK) {
-            display_error(NULL, error);
-            return (FAILURE);
-        }
         if (is_builtin(node->text[0]) == SUCCESS)
             continue;
         error = is_valid_command(mysh, node);
         if (error == ERR_NO_SUCH_FILE_OR_DIRECTORY)
-            error = ERR_CMD_NOT_FOUND;
+            error = ERR_command_NOT_FOUND;
         if (error != ERR_OK) {
             display_error(node->text[0], error);
             return (FAILURE);

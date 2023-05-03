@@ -56,7 +56,7 @@ int my_cd_with_args(mysh_t *mysh, char *path, char *cwd)
     return (return_value);
 }
 
-int my_cd(mysh_t *mysh, cmd_node_t *node)
+int my_cd(mysh_t *mysh, command_node_t *node)
 {
     int return_value = SUCCESS;
     char *cwd = get_current_working_directory();

@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** exec_cmd_list
+** exec_command_list
 */
 
 #include "../../includes/mysh.h"
 
-void exec_cmd(mysh_t *mysh, cmd_node_t *node, const int nb_pipes, const int n)
+void exec_command(mysh_t *mysh, command_node_t *node, const int nb_pipes, const int n)
 {
     static int pipe_fd[2][2];
     int exit_value = -1;
@@ -30,10 +30,10 @@ void exec_cmd(mysh_t *mysh, cmd_node_t *node, const int nb_pipes, const int n)
     swap_pipe((int **)pipe_fd);
 }
 
-void exec_cmd_list(mysh_t *mysh, cmd_list_t *list)
+void exec_command_list(mysh_t *mysh, command_list_t *list)
 {
     int status = 0;
-    cmd_node_t *node = list->first;
+    command_node_t *node = list->first;
     bool last_is_builtin = false;
 
     if (!node)
@@ -41,7 +41,7 @@ void exec_cmd_list(mysh_t *mysh, cmd_list_t *list)
     if (is_builtin(list->last->text[0]) == SUCCESS)
         last_is_builtin = true;
     for (int i = 0; node; ++i) {
-        exec_cmd(mysh, node, list->size - 1, i);
+        exec_command(mysh, node, list->size - 1, i);
         node = node->next;
     }
     for (int i = 0; i < list->size; ++i) {

@@ -30,6 +30,7 @@ int my_strclen(const char *str, const char *delimiters);
 char *my_strccpy(const char *str, const char *delimiters);
 char *my_strchr(const char c, const char *delimiters);
 int count_words(const char *str, const char *delimiters);
+int count_char(char *str, const char c);
 char **my_str_to_word_array(char *str, const char *delimiters, size_t *n);
 char *my_concat(int count, ...);
 int my_isalpha(char c);

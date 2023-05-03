@@ -7,7 +7,7 @@
 
 #include "../../includes/mysh.h"
 
-int my_unsetenv(mysh_t *mysh, cmd_node_t *command)
+int my_unsetenv(mysh_t *mysh, command_node_t *command)
 {
     env_node_t *node = mysh->env_list->first;
 

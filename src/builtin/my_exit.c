@@ -47,7 +47,7 @@ int handle_exit_args(mysh_t *mysh, const char *exit_arg)
     return (return_value);
 }
 
-int my_exit(mysh_t *mysh, cmd_node_t *command)
+int my_exit(mysh_t *mysh, command_node_t *command)
 {
     int return_value = SUCCESS;
 

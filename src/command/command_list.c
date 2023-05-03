@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2023
 ** src
 ** File description:
-** list_env
+** command_list
 */
 
 #include "command.h"
 
-static cmd_node_t *new (char **text, int size)
+static command_node_t *new (char **text, int size)
 {
-    cmd_node_t *node = malloc(sizeof(*node));
+    command_node_t *node = malloc(sizeof(*node));
 
     if (!node)
         return (NULL);
@@ -23,7 +23,7 @@ static cmd_node_t *new (char **text, int size)
     return (node);
 }
 
-static void add (cmd_list_t *list, cmd_node_t *node)
+static void add (command_list_t *list, command_node_t *node)
 {
     if (!list || !node)
         return;
@@ -39,9 +39,9 @@ static void add (cmd_list_t *list, cmd_node_t *node)
     ++list->size;
 }
 
-cmd_list_t *new_cmd_list(void)
+command_list_t *new_command_list(void)
 {
-    cmd_list_t *list = malloc(sizeof(*list));
+    command_list_t *list = malloc(sizeof(*list));
 
     list->last = NULL;
     list->first = NULL;
