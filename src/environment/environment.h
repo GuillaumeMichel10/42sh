@@ -25,6 +25,7 @@ typedef struct environment_list_s {
     environment_node_t *last;
     environment_node_t *(*new)(void);
     void (*add)(struct environment_list_s *, environment_node_t *);
+    void (*pop)(struct environment_list_s *, environment_node_t *);
 }environment_list_t;
 
 environment_list_t *new_environment_list(void);

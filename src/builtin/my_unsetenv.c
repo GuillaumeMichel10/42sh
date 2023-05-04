@@ -11,23 +11,21 @@ int my_unsetenv(mysh_t *mysh, command_node_t *command)
 {
     environment_node_t *node = mysh->environment_list->first;
 
-    (void)node;
     if (command->size == 1) {
         display_error("unsetenv", ERR_TOO_FEW_ARGUMENTS);
         return (FAILURE);
     }
-    mysh->home = NULL;
-    mysh->oldpwd = NULL;
-//    for (int i = 1; node && command->text[i];) {
-//        if (my_strcmp(node->text[0], command->text[i]) == 0) {
-//            mysh->environment_list->pop(mysh->list_environment, node);
-//            update_environment(mysh);
-//            node = mysh->environment_list->first;
-//            ++i;
-//            continue;
-//        }
-//        if (!(node = node->next) && command->text[++i])
-//            node = mysh->environment_list->first;
-//    }
+    for (int i = 1; node && command->text[i];) {
+        if (my_strcmp(node->text[0], command->text[i]) == SUCCESS) {
+            mysh->environment_list->pop(mysh->environment_list, node);
+            update_environment(mysh);
+            node = mysh->environment_list->first;
+            ++i;
+            continue;
+        }
+        node = node->next;
+        if (!node && command->text[++i])
+            node = mysh->environment_list->first;
+    }
     return (SUCCESS);
 }

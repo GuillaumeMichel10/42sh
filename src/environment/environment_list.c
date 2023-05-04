@@ -19,7 +19,31 @@ static environment_node_t *new(void)
     return (node);
 }
 
-static void add (environment_list_t *list, environment_node_t *node)
+static void pop(environment_list_t *list, environment_node_t *node)
+{
+    if (!list || !node)
+        return;
+    if (--list->size <= 0) {
+        list->size = 0;
+        list->first = NULL;
+        list->last = NULL;
+        free (node);
+        return;
+    }
+    if (node == list->first) {
+        list->first = node->next;
+        list->first->prev = NULL;
+    } else if (node == list->last) {
+        list->last = node->prev;
+        list->last->next = NULL;
+    } else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+    free(node);
+}
+
+static void add(environment_list_t *list, environment_node_t *node)
 {
     if (!list || !node)
         return;
@@ -44,6 +68,7 @@ environment_list_t *new_environment_list(void)
     list->size = 0;
     list->add = add;
     list->new = new;
+    list->pop = pop;
 
     return (list);
 }

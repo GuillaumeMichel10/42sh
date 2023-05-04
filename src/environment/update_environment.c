@@ -23,13 +23,6 @@ void my_reset_environment(mysh_t *mysh)
         free(mysh->path);
         mysh->path = NULL;
     }
-
-    if (mysh->environment) {
-        for (int i = 0; mysh->environment[i]; ++i)
-            free(mysh->environment[i]);
-        free(mysh->environment);
-        mysh->environment = NULL;
-    }
 }
 
 void update_environment(mysh_t *mysh)
@@ -37,7 +30,7 @@ void update_environment(mysh_t *mysh)
     environment_node_t *node = mysh->environment_list->first;
     size_t k = 0;
 
-//    my_reset_environment(mysh);
+    my_reset_environment(mysh);
 
     mysh->environment = malloc(sizeof(*node) * (mysh->environment_list->size + 1));
     mysh->environment[mysh->environment_list->size] = NULL;
