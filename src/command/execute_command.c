@@ -7,6 +7,27 @@
 
 #include "../../includes/mysh.h"
 
+static void handle_wait_error(int status)
+{
+    if (WIFSIGNALED(status)) {
+        switch (WTERMSIG(status)) {
+            case SIGSEGV:
+                (WCOREDUMP(status)) ?
+                my_puterr("Segmentation fault (core dumped)\n") :
+                my_puterr("Segmentation fault\n");
+                break;
+            case SIGFPE:
+                (WCOREDUMP(status))
+                ? my_puterr("Floating exception (core dumped)\n")
+                : my_puterr("Floating exception\n");
+                break;
+            case SIGABRT:
+                my_puterr("Exec format error. Wrong Architecture.\n");
+                break;
+        }
+    }
+}
+
 void exec_command(mysh_t *mysh, command_node_t *node, const int nb_pipes, const int n)
 {
     static int pipe_fd[2][2];
@@ -47,6 +68,7 @@ void exec_command_list(mysh_t *mysh, command_list_t *list)
     for (int i = 0; i < list->size; ++i) {
         wait(&status);
         mysh->error = WEXITSTATUS(status);
+        handle_wait_error(status);
     }
     if (last_is_builtin)
         mysh->error = builtin(mysh, list->last);

@@ -50,7 +50,7 @@ error_m is_system_command(mysh_t *mysh, command_node_t *node)
     error_m error = ERR_OK;
 
     if (mysh->path == NULL)
-        return (error);
+        return (ERR_command_NOT_FOUND);
     for (int i = 0; mysh->path[i]; ++i) {
         path = my_concat(3, mysh->path[i], "/", node->text[0]);
         error = is_file_accessible(path);
